@@ -46,7 +46,7 @@ export default function App() {
 
     return (
         <div className={theme}>
-            <div className="min-h-screen bg-[var(--color-surface-0)] text-[var(--color-text-primary)] transition-colors duration-300">
+            <div className="min-h-screen bg-surface-0 text-text-primary transition-colors duration-300">
                 <Header theme={theme} onToggleTheme={toggleTheme} />
 
                 <main className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pb-32 flex flex-col items-center gap-16">
@@ -57,8 +57,8 @@ export default function App() {
                     {!loading && !result && !error && <EmptyState />}
 
                     {error && (
-                        <div className="animate-fade-in glass-card p-10 border-l-4 border-l-[var(--color-error)] w-full max-w-3xl rounded-[var(--radius-lg)]">
-                            <p className="text-[var(--color-error)] font-medium text-lg text-center">{error}</p>
+                        <div className="animate-fade-in glass-card p-10 border-l-4 border-l-error w-full max-w-3xl rounded-lg">
+                            <p className="text-error font-medium text-lg text-center">{error}</p>
                         </div>
                     )}
 

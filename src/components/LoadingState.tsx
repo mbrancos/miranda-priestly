@@ -13,17 +13,17 @@ export default function LoadingState() {
                 {steps.map((step, i) => (
                     <div
                         key={i}
-                        className="animate-fade-in glass-card p-8 flex items-center gap-6 rounded-[var(--radius-xl)] shadow-lg"
+                        className="animate-fade-in glass-card p-8 flex items-center gap-6 rounded-xl shadow-lg"
                         style={{ animationDelay: step.delay, opacity: 0 }}
                     >
-                        <div className="w-11 h-11 rounded-xl bg-[var(--color-accent-surface)] text-[var(--color-accent)] flex items-center justify-center animate-pulse-ring">
+                        <div className="w-11 h-11 rounded-xl bg-accent-surface text-accent flex items-center justify-center animate-pulse-ring">
                             {step.icon}
                         </div>
                         <div className="flex-1">
-                            <p className="text-sm font-medium text-[var(--color-text-primary)]">{step.label}</p>
-                            <div className="mt-2.5 h-1.5 rounded-full overflow-hidden bg-[var(--color-surface-2)]">
+                            <p className="text-sm font-medium text-text-primary">{step.label}</p>
+                            <div className="mt-2.5 h-1.5 rounded-full overflow-hidden bg-surface-2">
                                 <div
-                                    className="h-full rounded-full bg-gradient-to-r from-[var(--color-accent)] to-blue-500 animate-shimmer"
+                                    className="h-full rounded-full bg-linear-to-r from-accent to-blue-500 animate-shimmer"
                                     style={{ width: '100%' }}
                                 />
                             </div>

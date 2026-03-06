@@ -23,24 +23,24 @@ export default function ResultTabs({ result, sourceUrl }: ResultTabsProps) {
         <div className="flex flex-col w-full">
             {/* Site info */}
             {result.metadata?.title && (
-                <div className="flex items-center justify-center gap-3 mb-8 text-sm text-[var(--color-text-secondary)] bg-[var(--color-surface-1)] w-fit mx-auto px-5 py-2.5 rounded-2xl border border-[var(--color-border-default)]">
-                    <Globe className="w-4 h-4 text-[var(--color-accent)]" />
-                    <span className="font-medium text-[var(--color-text-primary)]">{result.metadata.title}</span>
-                    <span className="text-[var(--color-text-muted)] opacity-50">•</span>
-                    <span className="text-[var(--color-text-muted)] font-mono text-xs truncate max-w-[200px] sm:max-w-md">{sourceUrl}</span>
+                <div className="flex items-center justify-center gap-3 mb-8 text-sm text-text-secondary bg-surface-1 w-fit mx-auto px-5 py-2.5 rounded-2xl border border-border-default">
+                    <Globe className="w-4 h-4 text-accent" />
+                    <span className="font-medium text-text-primary">{result.metadata.title}</span>
+                    <span className="text-text-muted opacity-50">•</span>
+                    <span className="text-text-muted font-mono text-xs truncate max-w-[200px] sm:max-w-md">{sourceUrl}</span>
                 </div>
             )}
 
             {/* Tab Buttons */}
             <div className="flex justify-center mb-10">
-                <div className="flex gap-1.5 p-1.5 rounded-2xl bg-[var(--color-surface-1)] border border-[var(--color-border-default)] w-fit shadow-sm">
+                <div className="flex gap-1.5 p-1.5 rounded-2xl bg-surface-1 border border-border-default w-fit shadow-sm">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2.5 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${activeTab === tab.id
-                                ? 'bg-[var(--color-accent)] text-white shadow-lg shadow-[var(--color-accent-glow)]'
-                                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-2)]'
+                                ? 'bg-accent text-white shadow-(--color-accent-glow)'
+                                : 'text-text-secondary hover:text-text-primary hover:bg-surface-2'
                                 }`}
                         >
                             {tab.icon}

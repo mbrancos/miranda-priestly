@@ -30,15 +30,15 @@ export default function EmptyState() {
                 {cards.map((card, i) => (
                     <div
                         key={i}
-                        className="glass-card p-8 sm:p-10 hover:bg-[var(--color-surface-1)] hover:-translate-y-1 transition-all duration-300 border border-[var(--color-border-default)]/50 rounded-[var(--radius-xl)]"
+                        className="glass-card p-8 sm:p-10 hover:bg-surface-1 hover:-translate-y-1 transition-all duration-300 border border-border-default/50 rounded-xl"
                     >
                         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-                            <div className="shrink-0 w-14 h-14 rounded-2xl bg-[var(--color-surface-2)] border border-[var(--color-border-default)] flex items-center justify-center shadow-inner">
+                            <div className="shrink-0 w-14 h-14 rounded-2xl bg-surface-2 border border-border-default flex items-center justify-center shadow-inner">
                                 {card.icon}
                             </div>
                             <div className="pt-1">
-                                <h4 className="font-bold text-lg text-[var(--color-text-primary)] tracking-tight">{card.title}</h4>
-                                <p className="text-[15px] text-[var(--color-text-secondary)] mt-3 leading-relaxed">
+                                <h4 className="font-bold text-lg text-text-primary tracking-tight">{card.title}</h4>
+                                <p className="text-[15px] text-text-secondary mt-3 leading-relaxed">
                                     {card.description}
                                 </p>
                             </div>
@@ -48,8 +48,8 @@ export default function EmptyState() {
             </div>
 
             <div className="mt-44 flex justify-center animate-fade-in" style={{ animationDelay: '0.6s', opacity: 0 }}>
-                <p className="inline-flex items-center gap-3 text-sm font-medium text-[var(--color-text-muted)] bg-[var(--color-surface-1)] px-6 py-3 rounded-full border border-[var(--color-border-default)] shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_8px_var(--color-accent)]" />
+                <p className="inline-flex items-center gap-3 text-sm font-medium text-text-muted bg-surface-1 px-6 py-3 rounded-full border border-border-default shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_8px_var(--color-accent)]" />
                     Experimente com sites como airbnb.com, stripe.com ou apple.com
                 </p>
             </div>
