@@ -38,7 +38,7 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
                 de qualquer site
             </h2>
 
-            <p className="mt-12 mb-20 text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
+            <p className="mt-12 mb-10 text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
                 Insira uma URL e receba os tokens de design prontos para
                 <br className="hidden sm:block" />
                 consumo humano e para suas ferramentas de IA.

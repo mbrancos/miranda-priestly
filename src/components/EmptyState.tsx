@@ -47,7 +47,7 @@ export default function EmptyState() {
                 ))}
             </div>
 
-            <div className="mt-44 flex justify-center animate-fade-in" style={{ animationDelay: '0.6s', opacity: 0 }}>
+            <div className="mt-20 flex justify-center animate-fade-in" style={{ animationDelay: '0.6s', opacity: 0 }}>
                 <p className="inline-flex items-center gap-3 text-sm font-medium text-text-muted bg-surface-1 px-6 py-3 rounded-full border border-border-default shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_8px_var(--color-accent)]" />
                     Experimente com sites como airbnb.com, stripe.com ou apple.com
