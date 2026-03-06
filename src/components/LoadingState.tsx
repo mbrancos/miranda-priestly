@@ -8,7 +8,7 @@ export default function LoadingState() {
     ]
 
     return (
-        <div className="mt-40 w-full flex flex-col items-center px-4">
+        <div className="w-full flex flex-col items-center px-4">
             <div className="flex flex-col gap-8 w-full max-w-2xl">
                 {steps.map((step, i) => (
                     <div

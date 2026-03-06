@@ -23,8 +23,8 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
     }
 
     return (
-        <section className="pt-24 sm:pt-40 flex flex-col items-center justify-center text-center w-full">
-            <div className="mb-10 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[var(--color-accent-surface)] border border-[var(--color-accent)]/20 shadow-sm animate-fade-in" style={{ animationDelay: '0.1s', opacity: 0 }}>
+        <section className="pt-32 sm:pt-44 pb-24 flex flex-col items-center justify-center text-center w-full">
+            <div className="mb-6 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[var(--color-accent-surface)] border border-[var(--color-accent)]/20 shadow-sm animate-fade-in" style={{ animationDelay: '0.1s', opacity: 0 }}>
                 <Sparkles className="w-4 h-4 text-[var(--color-accent)]" />
                 <span className="text-[14px] font-bold text-[var(--color-accent)] tracking-wider uppercase">
                     Powered by Firecrawl
@@ -38,13 +38,13 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
                 de qualquer site
             </h2>
 
-            <p className="mt-10 text-xl sm:text-2xl text-[var(--color-text-secondary)] max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
+            <p className="mt-12 mb-20 text-xl sm:text-2xl text-[var(--color-text-secondary)] max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
                 Insira uma URL e receba os tokens de design prontos para
                 <br className="hidden sm:block" />
                 consumo humano e para suas ferramentas de IA.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-20 w-full max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s', opacity: 0 }}>
+            <form onSubmit={handleSubmit} className="mt-16 w-full max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s', opacity: 0 }}>
                 <div className="glass-card p-3 flex items-center gap-3 transition-all duration-300 hover:border-[var(--color-border-hover)] focus-within:border-[var(--color-accent)]/50 focus-within:shadow-[0_0_0_5px_var(--color-accent-glow)] rounded-[var(--radius-xl)]">
                     <div className="flex items-center gap-4 flex-1 pl-5">
                         <Search className="w-6 h-6 text-[var(--color-text-muted)] shrink-0" />
