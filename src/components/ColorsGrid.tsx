@@ -37,11 +37,11 @@ export default function ColorsGrid({ branding }: ColorsGridProps) {
     return (
         <section className="glass-card p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-surface)] flex items-center justify-center">
-                    <Palette className="w-5 h-5 text-[var(--color-accent)]" />
+                <div className="w-10 h-10 rounded-xl bg-accent-surface flex items-center justify-center">
+                    <Palette className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-[var(--color-text-primary)]">Cores Principais</h3>
-                <span className="ml-2 text-[11px] font-semibold tracking-wide text-[var(--color-text-muted)] bg-[var(--color-surface-2)] px-2.5 py-1 rounded-full uppercase border border-[var(--color-border-default)]">
+                <h3 className="text-xl font-bold text-text-primary">Cores Principais</h3>
+                <span className="ml-2 text-[11px] font-semibold tracking-wide text-text-muted bg-surface-2 px-2.5 py-1 rounded-full uppercase border border-border-default">
                     {colors.length} tokens
                 </span>
             </div>
@@ -51,12 +51,12 @@ export default function ColorsGrid({ branding }: ColorsGridProps) {
                     <button
                         key={key}
                         onClick={() => copyColor(value!)}
-                        className="group flex flex-col items-center gap-3.5 p-4 rounded-2xl hover:bg-[var(--color-surface-2)] transition-all duration-300 cursor-pointer border border-transparent hover:border-[var(--color-border-default)]"
+                        className="group flex flex-col items-center gap-3.5 p-4 rounded-2xl hover:bg-surface-2 transition-all duration-300 cursor-pointer border border-transparent hover:border-border-default"
                         title={`Copiar ${value}`}
                     >
                         <div className="relative">
                             <div
-                                className="w-16 h-16 rounded-[1.25rem] shadow-sm border border-[var(--color-border-default)]/50 group-hover:scale-110 group-hover:shadow-md transition-all duration-300"
+                                className="w-16 h-16 rounded-[1.25rem] shadow-sm border border-border-default/50 group-hover:scale-110 group-hover:shadow-md transition-all duration-300"
                                 style={{ backgroundColor: value }}
                             />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10 rounded-[1.25rem]">
@@ -69,10 +69,10 @@ export default function ColorsGrid({ branding }: ColorsGridProps) {
                         </div>
 
                         <div className="text-center">
-                            <p className="text-[13px] font-semibold text-[var(--color-text-primary)] leading-tight mb-1">
+                            <p className="text-[13px] font-semibold text-text-primary leading-tight mb-1">
                                 {COLOR_LABELS[key] || key}
                             </p>
-                            <p className="text-[11px] font-mono text-[var(--color-text-muted)] uppercase">
+                            <p className="text-[11px] font-mono text-text-muted uppercase">
                                 {value}
                             </p>
                         </div>

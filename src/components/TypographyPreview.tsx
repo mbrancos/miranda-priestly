@@ -67,16 +67,16 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
     return (
         <section className="glass-card p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-surface)] flex items-center justify-center">
-                    <Type className="w-5 h-5 text-[var(--color-accent)]" />
+                <div className="w-10 h-10 rounded-xl bg-accent-surface flex items-center justify-center">
+                    <Type className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-[var(--color-text-primary)]">Tipografia</h3>
+                <h3 className="text-xl font-bold text-text-primary">Tipografia</h3>
             </div>
 
             {/* Font Families */}
             {fontFamilies.length > 0 && (
                 <div className="mb-8">
-                    <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-4">
+                    <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-4">
                         Famílias de Fonte
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -84,13 +84,13 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                             <button
                                 key={font}
                                 onClick={() => handleCopy(font)}
-                                className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-surface-2)] border border-[var(--color-border-default)] hover:border-[var(--color-accent)] transition-all cursor-pointer"
+                                className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-2 border border-border-default hover:border-accent transition-all cursor-pointer"
                             >
                                 <span className="text-sm font-medium" style={{ fontFamily: font }}>{font}</span>
                                 {copied === font ? (
-                                    <Check className="w-3 h-3 text-[var(--color-success)]" />
+                                    <Check className="w-3 h-3 text-success" />
                                 ) : (
-                                    <Copy className="w-3 h-3 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <Copy className="w-3 h-3 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
                                 )}
                             </button>
                         ))}
@@ -101,7 +101,7 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
             {/* Type Scale */}
             {Object.keys(sizes).length > 0 && (
                 <div className="mb-8">
-                    <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-5">
+                    <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-5">
                         Escala Tipográfica
                     </p>
                     <div className="space-y-4">
@@ -114,10 +114,10 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                                     onClick={() => handleCopy(role.size!)}
                                     className="w-full flex items-baseline gap-4 group cursor-pointer text-left"
                                 >
-                                    <span className="shrink-0 w-14 text-right text-xs font-mono text-[var(--color-accent)] font-semibold">
+                                    <span className="shrink-0 w-14 text-right text-xs font-mono text-accent font-semibold">
                                         {role.tag}
                                     </span>
-                                    <div className="flex-1 border-b border-dashed border-[var(--color-border-default)] pb-3 group-hover:border-[var(--color-accent)] transition-colors">
+                                    <div className="flex-1 border-b border-dashed border-border-default pb-3 group-hover:border-accent transition-colors">
                                         <p
                                             style={{
                                                 fontFamily,
@@ -125,17 +125,17 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                                                 fontWeight: role.weight,
                                                 lineHeight: role.lineHeight || 'normal',
                                             }}
-                                            className="text-[var(--color-text-primary)] leading-tight truncate"
+                                            className="text-text-primary leading-tight truncate"
                                         >
                                             {PANGRAM}
                                         </p>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <p className="text-[10px] font-mono text-[var(--color-text-muted)]">
+                                            <p className="text-[10px] font-mono text-text-muted">
                                                 {role.size} • weight {role.weight}
                                                 {role.lineHeight ? ` • line-height ${role.lineHeight}` : ''}
                                             </p>
                                             {copied === role.size && (
-                                                <Check className="w-3 h-3 text-[var(--color-success)]" />
+                                                <Check className="w-3 h-3 text-success" />
                                             )}
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
             {/* Font weights */}
             {Object.keys(weights).length > 0 && (
                 <div className="mb-8">
-                    <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-4">
+                    <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-4">
                         Pesos da Fonte
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -159,7 +159,7 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                                 <button
                                     key={name}
                                     onClick={() => handleCopy(weight)}
-                                    className="p-3 rounded-xl bg-[var(--color-surface-2)] border border-[var(--color-border-default)] hover:border-[var(--color-accent)] transition-all cursor-pointer text-left group"
+                                    className="p-3 rounded-xl bg-surface-2 border border-border-default hover:border-accent transition-all cursor-pointer text-left group"
                                 >
                                     <div className="flex justify-between items-start">
                                         <p
@@ -167,17 +167,17 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                                                 fontFamily: fontFamilies[0] || 'inherit',
                                                 fontWeight: weight,
                                             }}
-                                            className="text-lg text-[var(--color-text-primary)]"
+                                            className="text-lg text-text-primary"
                                         >
                                             Aa
                                         </p>
                                         {copied === String(weight) ? (
-                                            <Check className="w-3 h-3 text-[var(--color-success)]" />
+                                            <Check className="w-3 h-3 text-success" />
                                         ) : (
-                                            <Copy className="w-3 h-3 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100" />
+                                            <Copy className="w-3 h-3 text-text-muted opacity-0 group-hover:opacity-100" />
                                         )}
                                     </div>
-                                    <p className="text-[10px] font-mono text-[var(--color-text-muted)] mt-1 capitalize">
+                                    <p className="text-[10px] font-mono text-text-muted mt-1 capitalize">
                                         {name} ({weight})
                                     </p>
                                 </button>
@@ -189,25 +189,25 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
 
             {/* Pangram Preview with all fonts */}
             {fontFamilies.length > 0 && (
-                <div className="mt-6 p-4 rounded-xl bg-[var(--color-surface-1)] border border-[var(--color-border-default)]">
+                <div className="mt-6 p-4 rounded-xl bg-surface-1 border border-border-default">
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
+                        <p className="text-xs font-semibold text-text-muted uppercase tracking-wider">
                             Preview em Tempo Real
                         </p>
-                        <div className="flex items-center gap-1.5 text-[10px] text-[var(--color-text-muted)]">
+                        <div className="flex items-center gap-1.5 text-[10px] text-text-muted">
                             <ExternalLink className="w-3 h-3" />
                             <span>Fontes carregadas dinamicamente</span>
                         </div>
                     </div>
                     <div className="space-y-4">
                         {fontFamilies.map(font => (
-                            <div key={font} className="border-l-2 border-[var(--color-accent-glow)] pl-4 py-1">
-                                <p className="text-[10px] font-mono text-[var(--color-text-muted)] mb-1 uppercase tracking-tight">
+                            <div key={font} className="border-l-2 border-accent-glow pl-4 py-1">
+                                <p className="text-[10px] font-mono text-text-muted mb-1 uppercase tracking-tight">
                                     {font}
                                 </p>
                                 <p
                                     style={{ fontFamily: font }}
-                                    className="text-lg text-[var(--color-text-primary)] leading-tight"
+                                    className="text-lg text-text-primary leading-tight"
                                 >
                                     {PANGRAM_PT}
                                 </p>

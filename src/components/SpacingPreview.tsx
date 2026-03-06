@@ -35,17 +35,17 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
     return (
         <section className="glass-card p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-surface)] flex items-center justify-center">
-                    <Ruler className="w-5 h-5 text-[var(--color-accent)]" />
+                <div className="w-10 h-10 rounded-xl bg-accent-surface flex items-center justify-center">
+                    <Ruler className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-[var(--color-text-primary)]">Espaçamento</h3>
+                <h3 className="text-xl font-bold text-text-primary">Espaçamento</h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 {/* Base Unit Scale */}
                 {spacingScale.length > 0 && (
                     <div>
-                        <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">
+                        <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
                             Escala Base ({baseUnit}px)
                         </p>
                         <div className="space-y-2.5">
@@ -55,21 +55,21 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
                                     onClick={() => handleCopy(`${s.value}px`)}
                                     className="flex items-center gap-3 w-full group cursor-pointer"
                                 >
-                                    <span className="shrink-0 w-8 text-right text-xs font-mono text-[var(--color-text-muted)] group-hover:text-[var(--color-accent)] transition-colors">
+                                    <span className="shrink-0 w-8 text-right text-xs font-mono text-text-muted group-hover:text-accent transition-colors">
                                         {s.label}
                                     </span>
                                     <div
-                                        className="h-5 rounded bg-gradient-to-r from-[var(--color-accent)] to-blue-500 opacity-60 transition-all duration-300 group-hover:opacity-100"
+                                        className="h-5 rounded bg-linear-to-r from-accent to-blue-500 opacity-60 transition-all duration-300 group-hover:opacity-100"
                                         style={{ width: `${Math.min(s.value * 2, 200)}px` }}
                                     />
                                     <div className="flex items-center gap-1.5 min-w-[60px]">
-                                        <span className="text-xs font-mono text-[var(--color-text-muted)]">
+                                        <span className="text-xs font-mono text-text-muted">
                                             {s.value}px
                                         </span>
                                         {copied === `${s.value}px` ? (
-                                            <Check className="w-3 h-3 text-[var(--color-success)]" />
+                                            <Check className="w-3 h-3 text-success" />
                                         ) : (
-                                            <Copy className="w-3 h-3 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <Copy className="w-3 h-3 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
                                         )}
                                     </div>
                                 </button>
@@ -82,7 +82,7 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
                 <div className="space-y-4">
                     {borderRadius && (
                         <div>
-                            <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">
+                            <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
                                 Raio de Borda
                             </p>
                             <button
@@ -90,19 +90,19 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
                                 className="flex items-center gap-4 group cursor-pointer"
                             >
                                 <div
-                                    className="w-20 h-20 border-2 border-[var(--color-accent)] bg-[var(--color-accent-surface)] transition-transform group-hover:scale-105"
+                                    className="w-20 h-20 border-2 border-accent bg-accent-surface transition-transform group-hover:scale-105"
                                     style={{ borderRadius }}
                                 />
                                 <div className="text-left">
                                     <div className="flex items-center gap-2">
-                                        <p className="text-sm font-medium text-[var(--color-text-primary)]">{borderRadius}</p>
+                                        <p className="text-sm font-medium text-text-primary">{borderRadius}</p>
                                         {copied === borderRadius ? (
-                                            <Check className="w-3.5 h-3.5 text-[var(--color-success)]" />
+                                            <Check className="w-3.5 h-3.5 text-success" />
                                         ) : (
-                                            <Copy className="w-3.5 h-3.5 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100" />
+                                            <Copy className="w-3.5 h-3.5 text-text-muted opacity-0 group-hover:opacity-100" />
                                         )}
                                     </div>
-                                    <p className="text-xs text-[var(--color-text-muted)]">border-radius</p>
+                                    <p className="text-xs text-text-muted">border-radius</p>
                                 </div>
                             </button>
                         </div>
@@ -110,7 +110,7 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
 
                     {padding && Object.keys(padding).length > 0 && (
                         <div>
-                            <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">
+                            <p className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
                                 Padding
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -118,14 +118,14 @@ export default function SpacingPreview({ branding }: SpacingPreviewProps) {
                                     <button
                                         key={key}
                                         onClick={() => handleCopy(value!)}
-                                        className="px-3 py-1.5 rounded-lg bg-[var(--color-surface-2)] border border-[var(--color-border-default)] hover:border-[var(--color-accent)] transition-all cursor-pointer group flex items-center gap-2"
+                                        className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border-default hover:border-accent transition-all cursor-pointer group flex items-center gap-2"
                                     >
-                                        <span className="text-xs font-mono text-[var(--color-text-muted)]">{key}: </span>
-                                        <span className="text-xs font-mono text-[var(--color-text-primary)]">{value}</span>
+                                        <span className="text-xs font-mono text-text-muted">{key}: </span>
+                                        <span className="text-xs font-mono text-text-primary">{value}</span>
                                         {copied === value ? (
-                                            <Check className="w-3 h-3 text-[var(--color-success)]" />
+                                            <Check className="w-3 h-3 text-success" />
                                         ) : (
-                                            <Copy className="w-3 h-3 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100" />
+                                            <Copy className="w-3 h-3 text-text-muted opacity-0 group-hover:opacity-100" />
                                         )}
                                     </button>
                                 ))}

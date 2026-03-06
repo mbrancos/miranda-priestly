@@ -49,7 +49,7 @@ export default function App() {
             <div className="min-h-screen bg-surface-0 text-text-primary transition-colors duration-300">
                 <Header theme={theme} onToggleTheme={toggleTheme} />
 
-                <main className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pb-32 flex flex-col items-center gap-8">
+                <main className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pb-32 flex flex-col items-center gap-4">
                     <InputSection onExtract={handleExtract} loading={loading} />
 
                     {loading && <LoadingState />}

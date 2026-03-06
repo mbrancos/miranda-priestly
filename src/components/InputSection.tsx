@@ -23,7 +23,7 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
     }
 
     return (
-        <section className="pt-32 sm:pt-44 pb-24 flex flex-col items-center justify-center text-center w-full">
+        <section className="pt-16 sm:pt-[88px] pb-24 flex flex-col items-center justify-center text-center w-full">
             <div className="mb-6 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-accent-surface border border-accent/20 shadow-sm animate-fade-in" style={{ animationDelay: '0.1s', opacity: 0 }}>
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span className="text-[14px] font-bold text-accent tracking-wider uppercase">
@@ -38,7 +38,7 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
                 de qualquer site
             </h2>
 
-            <p className="mt-12 mb-10 text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
+            <p className="mt-6 mb-5 text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s', opacity: 0 }}>
                 Insira uma URL e receba os tokens de design prontos para
                 <br className="hidden sm:block" />
                 consumo humano e para suas ferramentas de IA.
@@ -52,7 +52,7 @@ export default function InputSection({ onExtract, loading }: InputSectionProps) 
                             type="text"
                             value={url}
                             onChange={e => setUrl(e.target.value)}
-                            placeholder="https://meuprojeto.com.br"
+                            placeholder="https://bananecos.com.br"
                             disabled={loading}
                             className="flex-1 bg-transparent text-text-primary placeholder-text-muted text-lg outline-none disabled:opacity-50 font-mono py-2"
                             autoFocus

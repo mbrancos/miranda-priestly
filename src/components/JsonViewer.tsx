@@ -74,26 +74,26 @@ export default function JsonViewer({ result, sourceUrl }: JsonViewerProps) {
     return (
         <div className="glass-card overflow-hidden">
             {/* Toolbar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-3 border-b border-[var(--color-border-default)] bg-[var(--color-surface-1)] gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-3 border-b border-border-default bg-surface-1 gap-3">
                 <div className="flex items-center gap-3">
-                    <div className="flex bg-[var(--color-surface-2)] p-1 rounded-lg border border-[var(--color-border-default)]">
+                    <div className="flex bg-surface-2 p-1 rounded-lg border border-border-default">
                         <button
                             onClick={() => setFormat('json')}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'json' ? 'bg-[var(--color-accent)] text-white' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'}`}
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'json' ? 'bg-accent text-white' : 'text-text-muted hover:text-text-secondary'}`}
                         >
                             <FileJson className="w-3 h-3" />
                             JSON
                         </button>
                         <button
                             onClick={() => setFormat('tailwind')}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'tailwind' ? 'bg-[var(--color-accent)] text-white' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'}`}
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'tailwind' ? 'bg-accent text-white' : 'text-text-muted hover:text-text-secondary'}`}
                         >
                             <Settings className="w-3 h-3" />
                             Tailwind
                         </button>
                         <button
                             onClick={() => setFormat('css')}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'css' ? 'bg-[var(--color-accent)] text-white' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'}`}
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] uppercase font-bold transition-all ${format === 'css' ? 'bg-accent text-white' : 'text-text-muted hover:text-text-secondary'}`}
                         >
                             <Hash className="w-3 h-3" />
                             CSS
@@ -104,7 +104,7 @@ export default function JsonViewer({ result, sourceUrl }: JsonViewerProps) {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={handleDownload}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] hover:border-[var(--color-border-hover)] hover:text-[var(--color-text-primary)]"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer bg-surface-2 text-text-secondary border border-border-default hover:border-border-hover hover:text-text-primary"
                     >
                         <Download className="w-3.5 h-3.5" />
                         Baixar
@@ -113,7 +113,7 @@ export default function JsonViewer({ result, sourceUrl }: JsonViewerProps) {
                         onClick={handleCopy}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer ${copied
                             ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                            : 'bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] border border-[var(--color-border-default)] hover:border-[var(--color-border-hover)] hover:text-[var(--color-text-primary)]'
+                            : 'bg-surface-2 text-text-secondary border border-border-default hover:border-border-hover hover:text-text-primary'
                             }`}
                     >
                         {copied ? (
@@ -132,7 +132,7 @@ export default function JsonViewer({ result, sourceUrl }: JsonViewerProps) {
             </div>
 
             {/* Code Block */}
-            <div className="overflow-x-auto max-h-[600px] overflow-y-auto bg-[var(--color-surface-0)]">
+            <div className="overflow-x-auto max-h-[600px] overflow-y-auto bg-surface-0">
                 <pre className="p-5 text-sm leading-relaxed font-mono">
                     <code dangerouslySetInnerHTML={{ __html: highlighted }} />
                 </pre>
