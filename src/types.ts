@@ -77,12 +77,55 @@ export interface BrandingData {
     components?: BrandingComponents
 }
 
+export type UiLibrary = 'tailwind' | 'material-ui' | 'bootstrap' | 'radix' | 'custom' | 'unknown'
+export type MotionLib = 'framer-motion' | 'gsap' | 'aos' | 'css-native' | 'none' | 'unknown'
+export type CmsCategory = 'cms' | 'pagebuilder' | 'framework' | 'pure' | 'unknown'
+export type HostingCategory = 'cloud' | 'shared' | 'unknown'
+
+export interface AuditResult {
+    uiLibrary: UiLibrary
+    uiLibraryConfidence: number
+    motionLib: MotionLib
+    motionDetected: boolean
+}
+
+export interface InfrastructureResult {
+    cms: string
+    cmsCategory: CmsCategory
+    hosting: string
+    hostingCategory: HostingCategory
+    trackers: string[]
+}
+
+export interface TypographyScaleEntry {
+    fontFamily: string | null
+    fontSize: string | null
+    fontWeight: string | null
+    lineHeight: string | null
+}
+
+export interface TypographyScale {
+    h1: TypographyScaleEntry | null
+    h2: TypographyScaleEntry | null
+    h3: TypographyScaleEntry | null
+    h4: TypographyScaleEntry | null
+    h5: TypographyScaleEntry | null
+    h6: TypographyScaleEntry | null
+    p_normal: TypographyScaleEntry | null
+    p_small: TypographyScaleEntry | null
+}
+
 export interface ExtractResult {
     branding: BrandingData
     metadata?: {
         title?: string
         sourceURL?: string
     }
+    images?: string[]
+    svgs?: string[]
+    audit?: AuditResult
+    infrastructure?: InfrastructureResult
+    typographyScale?: TypographyScale
 }
 
 /** W3C Design Tokens format for AI consumption */

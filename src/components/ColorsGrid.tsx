@@ -35,15 +35,19 @@ export default function ColorsGrid({ branding }: ColorsGridProps) {
     }
 
     return (
-        <section className="glass-card p-8">
-            <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-accent-surface flex items-center justify-center">
-                    <Palette className="w-5 h-5 text-accent" />
+        <section className="glass-card p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+
+            <div className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-accent-surface border border-border-default flex items-center justify-center shadow-xs">
+                    <Palette className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Cores Principais</h3>
-                <span className="ml-2 text-[11px] font-semibold tracking-wide text-text-muted bg-surface-2 px-2.5 py-1 rounded-full uppercase border border-border-default">
-                    {colors.length} tokens
-                </span>
+                <div>
+                    <h3 className="text-3xl font-black text-text-primary tracking-tight">Cores Extraídas</h3>
+                    <p className="text-sm text-text-muted mt-1 font-light">
+                        <span className="font-semibold text-accent">{colors.length} tokens</span> identificados no caos deste design.
+                    </p>
+                </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">

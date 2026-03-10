@@ -1,19 +1,64 @@
 import { useState, useEffect } from 'react'
-import { Type, Check, Copy, ExternalLink } from 'lucide-react'
-import type { BrandingData } from '../types'
+import { Type, Check, Copy, ExternalLink, AlertTriangle } from 'lucide-react'
+import type { BrandingData, TypographyScale, TypographyScaleEntry } from '../types'
 
 interface TypographyPreviewProps {
     branding: BrandingData
+    typographyScale?: TypographyScale
 }
 
 const PANGRAM = 'The quick brown fox jumps over the lazy dog'
 const PANGRAM_PT = 'À noite, vovô Kowalsky vê o ímã cair no pé do pingüim queixoso e vê-Loss'
 
-export default function TypographyPreview({ branding }: TypographyPreviewProps) {
+const SCALE_LABELS: { key: keyof TypographyScale; label: string; defaultWeight: number }[] = [
+    { key: 'h1', label: 'H1', defaultWeight: 700 },
+    { key: 'h2', label: 'H2', defaultWeight: 700 },
+    { key: 'h3', label: 'H3', defaultWeight: 600 },
+    { key: 'h4', label: 'H4', defaultWeight: 600 },
+    { key: 'h5', label: 'H5', defaultWeight: 500 },
+    { key: 'h6', label: 'H6', defaultWeight: 500 },
+    { key: 'p_normal', label: 'Body', defaultWeight: 400 },
+    { key: 'p_small', label: 'Small', defaultWeight: 400 },
+]
+
+// Miranda Priestly's typographic judgements
+function getMirandaWarnings(scale: TypographyScale): string[] {
+    const warnings: string[] = []
+    const entries = SCALE_LABELS.map(s => ({ ...s, entry: scale[s.key] }))
+
+    // Check for skipped heading levels
+    let lastFound: string | null = null
+    for (const { key, label, entry } of entries) {
+        if (key.startsWith('h')) {
+            if (entry) {
+                if (lastFound) {
+                    const lastNum = parseInt(lastFound.replace('H', ''))
+                    const curNum = parseInt(label.replace('H', ''))
+                    if (curNum - lastNum > 1) {
+                        warnings.push(`Pulando do ${lastFound} para o ${label}? A semântica mandou lembranças.`)
+                    }
+                }
+                lastFound = label
+            }
+        }
+    }
+
+    // Check for identical H1/H2
+    const h1 = scale.h1
+    const h2 = scale.h2
+    if (h1 && h2 && h1.fontSize === h2.fontSize && h1.fontWeight === h2.fontWeight) {
+        warnings.push('H1 e H2 com o mesmo peso e tamanho. Por que você simplesmente não grita logo com o usuário?')
+    }
+
+    return warnings
+}
+
+export default function TypographyPreview({ branding, typographyScale }: TypographyPreviewProps) {
     const [copied, setCopied] = useState<string | null>(null)
 
     const hasFonts = branding.fonts?.length || branding.typography?.fontFamilies
     const hasSizes = branding.typography?.fontSizes
+    const hasScale = typographyScale && Object.values(typographyScale).some(v => v !== null)
 
     const fontFamilies: string[] = []
 
@@ -29,10 +74,27 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
         })
     }
 
-    // Try to load fonts from Google Fonts if they are common
+    // Also collect font families from the typography scale
+    if (typographyScale) {
+        Object.values(typographyScale).forEach(entry => {
+            if (entry?.fontFamily && !fontFamilies.includes(entry.fontFamily)) {
+                fontFamilies.push(entry.fontFamily)
+            }
+        })
+    }
+
+    const LOCAL_FONTS = [
+        'Arial', 'Helvetica', 'Times', 'Times New Roman', 'Courier', 'Courier New',
+        'Verdana', 'Georgia', 'Palatino', 'Garamond', 'Bookman', 'Comic Sans MS',
+        'Trebuchet MS', 'Arial Black', 'Impact', 'Tahoma', 'sans-serif', 'serif',
+        'monospace', 'cursive', 'fantasy', 'system-ui', 'BlinkMacSystemFont', '-apple-system'
+    ]
+
     useEffect(() => {
-        if (fontFamilies.length > 0) {
-            const fontString = fontFamilies.map(f => f.replace(/\s+/g, '+')).join('|')
+        const googleFonts = fontFamilies.filter(f => !LOCAL_FONTS.some(local => f.toLowerCase().includes(local.toLowerCase())))
+
+        if (googleFonts.length > 0) {
+            const fontString = googleFonts.map(f => f.replace(/\s+/g, '+')).join('|')
             const link = document.createElement('link')
             link.href = `https://fonts.googleapis.com/css2?family=${fontString}:wght@400;500;600;700&display=swap`
             link.rel = 'stylesheet'
@@ -45,7 +107,7 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
         }
     }, [fontFamilies.join(',')])
 
-    if (!hasFonts && !hasSizes) return null
+    if (!hasFonts && !hasSizes && !hasScale) return null
 
     const handleCopy = (value: string | number) => {
         navigator.clipboard.writeText(String(value))
@@ -53,24 +115,21 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
         setTimeout(() => setCopied(null), 1500)
     }
 
-    const sizes = branding.typography?.fontSizes || {}
     const weights = branding.typography?.fontWeights || {}
-    const lineHeights = branding.typography?.lineHeights || {}
-
-    const typographyRoles = [
-        { tag: 'H1', size: sizes.h1, weight: weights.bold || 700, lineHeight: lineHeights.heading },
-        { tag: 'H2', size: sizes.h2, weight: weights.bold || 600, lineHeight: lineHeights.heading },
-        { tag: 'H3', size: sizes.h3, weight: weights.medium || 500, lineHeight: lineHeights.heading },
-        { tag: 'Body', size: sizes.body, weight: weights.regular || 400, lineHeight: lineHeights.body },
-    ]
+    const mirandaWarnings = typographyScale ? getMirandaWarnings(typographyScale) : []
 
     return (
-        <section className="glass-card p-8">
-            <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-accent-surface flex items-center justify-center">
-                    <Type className="w-5 h-5 text-accent" />
+        <section className="glass-card p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+
+            <div className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 rounded-2xl bg-accent-surface border border-border-default flex items-center justify-center shadow-xs">
+                    <Type className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Tipografia</h3>
+                <div>
+                    <h3 className="text-3xl font-black text-text-primary tracking-tight">Tipografia</h3>
+                    <p className="text-sm text-text-muted mt-1 font-light">As fontes que sustentam a interface.</p>
+                </div>
             </div>
 
             {/* Font Families */}
@@ -98,32 +157,52 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                 </div>
             )}
 
-            {/* Type Scale */}
-            {Object.keys(sizes).length > 0 && (
+            {/* Miranda Warnings */}
+            {mirandaWarnings.length > 0 && (
+                <div className="mb-8 space-y-2">
+                    {mirandaWarnings.map((warning, i) => (
+                        <div
+                            key={i}
+                            className="flex items-start gap-3 p-3 rounded-xl border border-amber-500/20 bg-amber-500/5"
+                        >
+                            <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-sm text-amber-400 italic" style={{ fontFamily: 'var(--font-serif)' }}>
+                                "{warning}"
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Typography Scale — Full H1-H6 + Paragraphs */}
+            {hasScale && typographyScale && (
                 <div className="mb-8">
                     <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-5">
-                        Escala Tipográfica
+                        Escala Tipográfica Completa
                     </p>
                     <div className="space-y-4">
-                        {typographyRoles.map(role => {
-                            if (!role.size) return null
-                            const fontFamily = fontFamilies[0] || 'inherit'
+                        {SCALE_LABELS.map(({ key, label, defaultWeight }) => {
+                            const entry = typographyScale[key]
+                            if (!entry) return null
+                            const fontFamily = entry.fontFamily || fontFamilies[0] || 'inherit'
+                            const weight = entry.fontWeight || String(defaultWeight)
+                            const copyValue = `${entry.fontSize || '?'} / ${weight} / ${fontFamily}`
                             return (
                                 <button
-                                    key={role.tag}
-                                    onClick={() => handleCopy(role.size!)}
+                                    key={key}
+                                    onClick={() => handleCopy(copyValue)}
                                     className="w-full flex items-baseline gap-4 group cursor-pointer text-left"
                                 >
                                     <span className="shrink-0 w-14 text-right text-xs font-mono text-accent font-semibold">
-                                        {role.tag}
+                                        {label}
                                     </span>
                                     <div className="flex-1 border-b border-dashed border-border-default pb-3 group-hover:border-accent transition-colors">
                                         <p
                                             style={{
                                                 fontFamily,
-                                                fontSize: role.size,
-                                                fontWeight: role.weight,
-                                                lineHeight: role.lineHeight || 'normal',
+                                                fontSize: entry.fontSize || 'inherit',
+                                                fontWeight: parseInt(weight) || defaultWeight,
+                                                lineHeight: entry.lineHeight || 'normal',
                                             }}
                                             className="text-text-primary leading-tight truncate"
                                         >
@@ -131,10 +210,11 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                                         </p>
                                         <div className="flex items-center gap-2 mt-1">
                                             <p className="text-[10px] font-mono text-text-muted">
-                                                {role.size} • weight {role.weight}
-                                                {role.lineHeight ? ` • line-height ${role.lineHeight}` : ''}
+                                                {entry.fontSize || '?'} • weight {weight}
+                                                {entry.lineHeight ? ` • line-height ${entry.lineHeight}` : ''}
+                                                {entry.fontFamily ? ` • ${entry.fontFamily}` : ''}
                                             </p>
-                                            {copied === role.size && (
+                                            {copied === copyValue && (
                                                 <Check className="w-3 h-3 text-success" />
                                             )}
                                         </div>
@@ -145,6 +225,61 @@ export default function TypographyPreview({ branding }: TypographyPreviewProps) 
                     </div>
                 </div>
             )}
+
+            {/* Fallback: Legacy type scale from branding (if no typographyScale) */}
+            {!hasScale && hasSizes && (() => {
+                const sizes = branding.typography?.fontSizes || {}
+                const legacyRoles = [
+                    { tag: 'H1', size: sizes.h1, weight: weights.bold || 700 },
+                    { tag: 'H2', size: sizes.h2, weight: weights.bold || 600 },
+                    { tag: 'H3', size: sizes.h3, weight: weights.medium || 500 },
+                    { tag: 'Body', size: sizes.body, weight: weights.regular || 400 },
+                ]
+                return (
+                    <div className="mb-8">
+                        <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-5">
+                            Escala Tipográfica
+                        </p>
+                        <div className="space-y-4">
+                            {legacyRoles.map(role => {
+                                if (!role.size) return null
+                                const fontFamily = fontFamilies[0] || 'inherit'
+                                return (
+                                    <button
+                                        key={role.tag}
+                                        onClick={() => handleCopy(role.size!)}
+                                        className="w-full flex items-baseline gap-4 group cursor-pointer text-left"
+                                    >
+                                        <span className="shrink-0 w-14 text-right text-xs font-mono text-accent font-semibold">
+                                            {role.tag}
+                                        </span>
+                                        <div className="flex-1 border-b border-dashed border-border-default pb-3 group-hover:border-accent transition-colors">
+                                            <p
+                                                style={{
+                                                    fontFamily,
+                                                    fontSize: role.size,
+                                                    fontWeight: role.weight,
+                                                }}
+                                                className="text-text-primary leading-tight truncate"
+                                            >
+                                                {PANGRAM}
+                                            </p>
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <p className="text-[10px] font-mono text-text-muted">
+                                                    {role.size} • weight {role.weight}
+                                                </p>
+                                                {copied === role.size && (
+                                                    <Check className="w-3 h-3 text-success" />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </button>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )
+            })()}
 
             {/* Font weights */}
             {Object.keys(weights).length > 0 && (
